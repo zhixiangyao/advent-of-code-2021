@@ -1,0 +1,12 @@
+{
+  "name": "advent-of-code-2021",
+  "version": "0.1.0",
+  "description": "Advent of code 2021",
+  "author": "zhixiangyao",
+  "scripts": {
+    "test": "zx ./script/index.mjs"
+  },
+  "devDependencies": {
+    "zx": "^4.2.0"
+  }
+}
