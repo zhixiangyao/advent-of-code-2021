@@ -38,7 +38,7 @@ function partOne(list) {
 }
 
 /**
- * part one
+ * part two
  * @param {[string, number][]} list
  * @returns {number}
  */
