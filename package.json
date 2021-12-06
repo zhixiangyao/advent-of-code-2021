@@ -4,10 +4,18 @@
   "description": "Advent of code 2021",
   "author": "zhixiangyao",
   "scripts": {
-    "test": "zx ./script/index.mjs"
+    "test": "zx ./script/index.mjs",
+    "lint:eslint": "eslint \"src/**/*.ts\" --fix",
+    "lint:prettier": "prettier --write ."
   },
   "devDependencies": {
     "@types/node": "^16.11.11",
+    "@typescript-eslint/eslint-plugin": "^5.5.0",
+    "@typescript-eslint/parser": "^5.5.0",
+    "eslint": "^8.4.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.4.1",
     "ts-node": "^10.4.0",
     "typescript": "^4.5.2",
     "zx": "^4.2.0"

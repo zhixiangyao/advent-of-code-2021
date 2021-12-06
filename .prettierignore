@@ -1,0 +1,10 @@
+dist
+build
+node_modules
+.husky
+
+package-lock.json
+pnpm-lock.yaml
+tsconfig.json
+**/*.svg
+**/*.sh
