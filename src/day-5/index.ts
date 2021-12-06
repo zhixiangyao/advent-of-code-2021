@@ -1,6 +1,6 @@
-import { readFileSync } from '../lib/index'
+import { readFileSync, Vec2 } from '../lib/index'
 
-const lines = readFileSync(__dirname, 'data.txt')
+const lines = readFileSync(__dirname, 'example.txt')
 
 type Point = [number, number]
 type Clouds = [Point, Point][]
@@ -84,7 +84,7 @@ function partTwo(width: number, height: number, clouds: Clouds): number {
     const [point1, point2] = clouds[i]
 
     if (point1[0] === point2[0]) {
-      // - y++ or y--
+      // y++
       const x = point1[0]
       const min = Math.min(point1[1], point2[1])
       const max = Math.max(point1[1], point2[1])
@@ -94,7 +94,7 @@ function partTwo(width: number, height: number, clouds: Clouds): number {
     }
 
     if (point1[1] === point2[1]) {
-      // | x++ or x--
+      // x++
       const y = point1[1]
       const min = Math.min(point1[0], point2[0])
       const max = Math.max(point1[0], point2[0])
@@ -184,6 +184,8 @@ function partTwo(width: number, height: number, clouds: Clouds): number {
     }
   }
 
+  console.log(grid)
+
   return count(grid)
 }
 
@@ -191,3 +193,26 @@ console.time('Time:')
 console.log('day-5-part-1:', partOne(width, height, clouds))
 console.log('day-5-part-2:', partTwo(width, height, clouds))
 console.timeEnd('Time:')
+
+const parseLine = (line: string): { start: Vec2; end: Vec2 } => {
+  const [start, end] = line.split(' -> ').map(coordinate => new Vec2(coordinate))
+  return { start, end }
+}
+
+const runner = (lines: string[]) => {
+  const _lines = lines.map(parseLine)
+  const seabed = new Map<string, number>()
+  for (const { start, end } of _lines) {
+    for (const element of start.reach(end, true, true)) {
+      const estr = element.toString()
+      const existing = seabed.get(estr) ?? 0
+      seabed.set(estr, existing + 1)
+    }
+  }
+  return [...seabed.values()].reduce((acc, cur) => {
+    if (cur >= 2) acc += 1
+    return acc
+  }, 0)
+}
+
+console.log(runner(lines))
