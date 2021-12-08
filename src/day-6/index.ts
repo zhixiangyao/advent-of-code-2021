@@ -1,4 +1,4 @@
-import { readFileSync, Vec2 } from '../lib/index'
+import { readFileSync } from '../lib/index'
 
 const lines = readFileSync(__dirname, 'data.txt', ',')
 
