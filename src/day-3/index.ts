@@ -1,9 +1,6 @@
-const fs = require('fs')
-const path = require('path')
+import { readFileSync } from '../lib/index'
 
-const filePath = path.resolve(__dirname, 'data.txt')
-
-const list = fs.readFileSync(filePath, 'utf8').split('\n')
+const lines = readFileSync(__dirname, 'data.txt', '\n')
 
 /**
  * demo
@@ -22,27 +19,22 @@ const list = fs.readFileSync(filePath, 'utf8').split('\n')
  * 01010
  */
 
-/**
- * part one
- * @param {string[]} list
- * @returns {number}
- */
-function partOne(list) {
-  const listLen = list.length
-  const bitCount = list[0].length
+function partOne(lines: string[]) {
+  const linesLen = lines.length
+  const bitCount = lines[0].length
   const gammaTemp = Array(bitCount).fill(null) // count the number of bits that are 1
   const gammaRateArr = Array(bitCount).fill(null) // most common bit
   const epsilonRateArr = Array(bitCount).fill(null) // least common bit
 
-  for (let i = 0; i < list.length; i += 1) {
-    const line = list[i]
+  for (let i = 0; i < lines.length; i += 1) {
+    const line = lines[i]
 
     for (let j = 0; j < line.length; j += 1) {
       gammaTemp[j] += Number(line[j])
     }
   }
 
-  const mid = Math.floor(listLen / 2)
+  const mid = Math.floor(linesLen / 2)
 
   for (let i = 0; i < gammaTemp.length; i += 1) {
     if (gammaTemp[i] > mid) {
@@ -54,8 +46,8 @@ function partOne(list) {
     }
   }
 
-  let gammaRate = Number(gammaRateArr.join(''))
-  let epsilonRate = Number(epsilonRateArr.join(''))
+  const gammaRate = gammaRateArr.join('')
+  const epsilonRate = epsilonRateArr.join('')
 
   return parseInt(gammaRate, 2) * parseInt(epsilonRate, 2)
 }
@@ -97,22 +89,17 @@ function partOne(list) {
  *                     = 230
  */
 
-/**
- * part two
- * @param {string[]} list
- * @returns {number}
- */
-function partTwo(list) {
-  const bitCount = list[0].length
+function partTwo(lines: string[]) {
+  const bitCount = lines[0].length
 
-  let oxygens = list
+  let oxygens = lines
   for (let i = 0; i < bitCount && oxygens.length > 1; i++) {
     const bit = getMostCommonBit(oxygens, i)
 
     oxygens = oxygens.filter(line => line[i] === bit)
   }
 
-  let CO2s = list
+  let CO2s = lines
   for (let i = 0; i < bitCount && CO2s.length > 1; i++) {
     const bit = getMostCommonBit(CO2s, i)
 
@@ -125,17 +112,11 @@ function partTwo(list) {
   return parseInt(oxygen, 2) * parseInt(CO2, 2)
 }
 
-/**
- *
- * @param {string[]} list
- * @param {number} index
- * @returns {'1' | '0'}
- */
-const getMostCommonBit = (list, index) => {
+const getMostCommonBit = (lines: string[], index: number): '1' | '0' => {
   let c0 = 0
   let c1 = 0
 
-  list.forEach(line => {
+  lines.forEach(line => {
     if (line[index] === '1') {
       c1 += 1
     } else {
@@ -146,5 +127,7 @@ const getMostCommonBit = (list, index) => {
   return c1 >= c0 ? '1' : '0'
 }
 
-console.log('day-3-part-1:', partOne(list))
-console.log('day-3-part-2:', partTwo(list))
+console.time('Time:')
+console.log('day-3-part-1:', partOne(lines))
+console.log('day-3-part-2:', partTwo(lines))
+console.timeEnd('Time:')
