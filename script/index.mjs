@@ -1,7 +1,7 @@
 #!/usr/bin/env zx
 
 // @ts-nocheck
-// await $`node ./src/day-1/index.js`
+// await $`ts-node ./src/day-1/index.ts`
 // await $`node ./src/day-2/index.js`
 // await $`node ./src/day-3/index.js`
 // await $`node ./src/day-4/index.js`
