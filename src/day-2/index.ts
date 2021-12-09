@@ -1,26 +1,17 @@
-const fs = require('fs')
-const path = require('path')
+import { readFileSync } from '../lib/index'
 
-const filePath = path.resolve(__dirname, 'data.txt')
+const lines = readFileSync(__dirname, 'data.txt', '\n')
 
-const list = fs
-  .readFileSync(filePath, 'utf8')
-  .split('\n')
-  .map(item => {
+function partOne(lines: string[]) {
+  const data = lines.map(item => {
     const [str, num] = item.split(' ')
-    return [str, Number(num)]
+    return [str, Number(num)] as [string, number]
   })
 
-/**
- * part one
- * @param {[string, number][]} list
- * @returns {number}
- */
-function partOne(list) {
   let step = 0
   let depth = 0
 
-  list.forEach(operation => {
+  data.forEach(operation => {
     switch (operation[0]) {
       case 'forward':
         step += operation[1]
@@ -37,18 +28,18 @@ function partOne(list) {
   return step * depth
 }
 
-/**
- * part two
- * @param {[string, number][]} list
- * @returns {number}
- */
-function partTwo(list) {
+function partTwo(lines: string[]) {
+  const data = lines.map(item => {
+    const [str, num] = item.split(' ')
+    return [str, Number(num)] as [string, number]
+  })
+
   let target = 0
   let depth = 0
   let step = 0
   let count = 0
 
-  list.forEach(operation => {
+  data.forEach(operation => {
     switch (operation[0]) {
       case 'forward':
         step += operation[1]
@@ -70,5 +61,7 @@ function partTwo(list) {
   return step * count
 }
 
-console.log('day-2-part-1:', partOne(list))
-console.log('day-2-part-2:', partTwo(list))
+console.time('Time:')
+console.log('day-2-part-1:', partOne(lines))
+console.log('day-2-part-2:', partTwo(lines))
+console.timeEnd('Time:')
