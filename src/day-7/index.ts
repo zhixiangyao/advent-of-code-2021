@@ -1,15 +1,6 @@
-import { readFileSync } from '../lib/index'
+import { readFileSync, median } from '../lib/index'
 
 const lines = readFileSync(__dirname, 'data.txt', ',')
-
-function median(arr: number[]) {
-  const len = arr.length
-  if (len % 2 === 0) {
-    return (arr[len / 2 - 1] + arr[len / 2]) / 2
-  } else {
-    return arr[Math.floor(len / 2)]
-  }
-}
 
 /**
  * part one
