@@ -9,4 +9,5 @@
 // await $`ts-node ./src/day-6/index.ts`
 // await $`ts-node ./src/day-7/index.ts`
 // await $`ts-node ./src/day-8/index.ts`
-await $`ts-node ./src/day-9/index.ts`
+// await $`ts-node ./src/day-9/index.ts`
+await $`ts-node ./src/day-10/index.ts`
